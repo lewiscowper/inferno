@@ -1,3 +1,5 @@
+import os
+
 ans=True
 
 while ans:
@@ -16,11 +18,13 @@ while ans:
 	ans=input("Which level would you like to play? ")
 	if ans == 1:
 		print("\nopen limbo.py")
+		os.system("python limbo.py")
 	elif ans == 4:
 		print("\nopen greed.py")
+		os.system("python greed.py")
 	elif ans == 7:
-		print("\nopen violence.py")	
+		print("\nopen violence.py")
 	elif ans != "":
-		print("\nPlease buy our new DLC")
+		print("\nPlease buy our new DLC ")
 
 	break
