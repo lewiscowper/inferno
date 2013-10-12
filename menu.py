@@ -25,6 +25,4 @@ while ans:
 	elif ans == 7:
 		print("\nopen violence.py")
 	elif ans != "":
-		print("\nPlease buy our new DLC ")
-
-	break
+		print("\nPlease buy our new DLCs")
