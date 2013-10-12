@@ -24,8 +24,8 @@ while ans:
 		os.system("python greed.py")
 	elif ans == 7:
 		print("\nopen violence.py")
-	elif ans != "":
-		print("\nPlease buy our new DLCs")
 	elif ans == 0:
 		print("\nExiting now")
 		break
+	elif ans != "":
+		print("\nPlease buy our new DLCs")
