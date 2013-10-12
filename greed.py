@@ -1,4 +1,4 @@
-import sys, pygame
+import sys, pygame,random
 from pygame import Rect
 from assets import Player
 from assets import Platform
@@ -15,25 +15,40 @@ def camera_update(camera, target_rect):
 	_, _, w, h = camera
 	return Rect(-l , -t, w, h)
 
+def createPlatforms():
+	assetList = []
+	
+	#add first platform
+	previousPlatform = firstPlatform = Platform(0, 300)
+	assetList.append(firstPlatform)
+	
+	for i in range (0, 30):
+		startingPoint = previousPlatform.rect.top
+		heightDifference = random.randint(-50,50) + startingPoint
+		if (heightDifference < 400):
+			heightDifference = 400
+		platform = Platform(i * 100, heightDifference)
+		assetList.append(platform)
+		previousPlatform = platform
+	return assetList
+
 def main():
 	black = 0, 0, 0
 	screen = pygame.display.set_mode(size)
 
 	# create assets and add to asset list
-	assetList = []
-	for i in range (0, 30):
-		platform = Platform(i * 60, 300)
-		assetList.append(platform)
+	assetList = createPlatforms()
 	platformSprites = pygame.sprite.RenderPlain(assetList)
+	lastPlatform = assetList[-1]
+	
+	goal = Goal(lastPlatform.rect.centerx, lastPlatform.rect.centery-30)
+	assetList.append(goal)
 	
 	player = Player(100, 250)
 	assetList.append(player)
 	
 	wall = Wall()
 	assetList.append(wall)
-	
-	goal = Goal(1000, 100)
-	assetList.append(goal)
 	
 	# Create camera
 	camera = Camera(camera_update, 300, 600)
@@ -80,6 +95,8 @@ def main():
 			print "Game over"
 			return
 		
-		
+		if (player.rect.colliderect(goal)):
+			print "You win!"
+			return
 
 if __name__ == '__main__': main()

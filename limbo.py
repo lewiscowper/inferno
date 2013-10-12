@@ -21,18 +21,17 @@ class Goal(pygame.sprite.Sprite):
 	    self.rect = self.image.get_rect()
 	    self.rect.topleft = 500,40
 
-def main():
-    platformImage = "images/platform.png"
+def main():    
     size = width, height = 800, 600
     black = 0, 0, 0
 
     screen = pygame.display.set_mode(size)
 
-    player = Player("images/player.png", 15, 580)
+    player = Player(15, 580)
 
     platformList = []
     for i in range (0, 10):
-        platform = Platform(platformImage, i*50, 600 - (i*50))
+        platform = Platform(i*50, 600 - (i*50))
         platformList.append(platform)
 
     platformSprites = pygame.sprite.RenderPlain(platformList)
@@ -70,7 +69,7 @@ def main():
  
         pygame.display.flip()
 
-	if (player.rect.left < -10 and player.rect.top > 590):
+        if (player.rect.left < -10 and player.rect.top > 600):
             print "You win"
             return
         
