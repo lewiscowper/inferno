@@ -1,8 +1,8 @@
-import sys, pygame
+import sys, pygame, assets
 from pygame import Rect
-from player import Player
-from platform import Platform
-from camera import Camera
+from assets import Player
+from assets import Platform
+from assets import Camera
 
 pygame.init()
 
@@ -14,6 +14,12 @@ def camera_update(camera, target_rect):
     _, _, w, h = camera
     return Rect(-l+HALF_WIDTH, -t+HALF_HEIGHT, w, h)
 
+class Goal(pygame.sprite.Sprite):
+	def __init__(self, image):
+	    pygame.sprite.Sprite.__init__(self)
+	    self.image = pygame.image.load(image)
+	    self.rect = self.image.get_rect()
+	    self.rect.topleft = 500,400
 def main():
     platformImage = "images/platform.png"
     size = width, height = 800, 600
@@ -21,7 +27,7 @@ def main():
 
     screen = pygame.display.set_mode(size)
 
-    player = Player("images/player.png")
+    player = Player("images/player.png", 100, 100)
 
     platformList = []
     for i in range (0, 10):
@@ -29,10 +35,7 @@ def main():
         platformList.append(platform)
 
     platformSprites = pygame.sprite.RenderPlain(platformList)
-
-    goalImage = pygame.image.load("images/goal.png")
-    goalRect = goalImage.get_rect()
-    goalRect.topleft = 700, 500
+    goal = Goal("images/goal.png")
 
     clock = pygame.time.Clock()
 
@@ -40,7 +43,7 @@ def main():
 
     while 1:
         screen.fill(black)
-        #clock.tick(60)
+        clock.tick(30)
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 return
@@ -54,7 +57,7 @@ def main():
 
         player.update()
         camera.update(player)
-        platformList.extend([player])
+        platformList.extend([player, goal])
         for e in platformList:
             try:
                 s = e.image
@@ -62,19 +65,16 @@ def main():
                 pass
             if s:
                 screen.blit(s, camera.scroll(e))
-
-        # platformSprites.draw(screen)        
-        # screen.blit(player.image, camera.state.topleft + player.rect.topleft)
-        #screen.blit(goalImage, goalRect)
-
+ 
         pygame.display.flip()
 
-        if (player.rect.bottom > 600):
-            print "Game over"
+        if (player.rect.bottom > 610):
+            print "You win"
             return
         
-        if (player.rect.colliderect(goalRect)):
-            print "You win!"
+        if (player.rect.colliderect(goal.rect)):
+            player.rect.topleft = 100,100
+	    main()
             return
 
 if __name__ == '__main__': main()
