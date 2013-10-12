@@ -32,7 +32,7 @@ def main():
 	wall = Wall()
 	assetList.append(wall)
 	
-	goal = Goal()
+	goal = Goal(1000, 100)
 	assetList.append(goal)
 	
 	# Create camera

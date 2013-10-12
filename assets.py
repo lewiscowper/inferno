@@ -74,9 +74,8 @@ class Wall(pygame.sprite.Sprite):
 		self.rect = self.rect.move(1,0)
 
 class Goal(pygame.sprite.Sprite):
-	def __init__(self):
+	def __init__(self, x, y):
 		pygame.sprite.Sprite.__init__(self)
 		self.image = pygame.image.load("images/goal.png")
 		self.rect = self.image.get_rect()
-		self.rect = self.image.get_rect()
-		self.rect.topleft = 5000, 300
+		self.rect.topleft = x, y
