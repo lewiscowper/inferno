@@ -14,9 +14,9 @@ class Camera(object):
 
 
 class Platform(pygame.sprite.Sprite):
-	def __init__(self,image, x, y):
+	def __init__(self, x, y):
 		pygame.sprite.Sprite.__init__(self)
-		self.image = pygame.image.load(image)
+		self.image = pygame.image.load("images/platform.png")
 		self.rect = self.image.get_rect()
 		self.x = x
 		self.y = y
@@ -29,10 +29,9 @@ class Player(pygame.sprite.Sprite):
 	movingLeft = 0
 	movingRight = 0
 
-	def __init__(self, image, x, y):
-                pygame.sprite.Sprite.__init__(self)
-
-		self.image = pygame.image.load(image)
+	def __init__(self,  x, y):
+		pygame.sprite.Sprite.__init__(self)
+		self.image = pygame.image.load("images/player.png")
 		self.rect = self.image.get_rect()
 		self.rect.topleft = x,y
 
@@ -63,4 +62,21 @@ class Player(pygame.sprite.Sprite):
 			movement[1] = 2
 
 	        self.rect = self.rect.move(movement)
+	        
+class Wall(pygame.sprite.Sprite):
+	def __init__(self):
+		pygame.sprite.Sprite.__init__(self)
+		self.image = pygame.image.load("images/wall.png")
+		self.rect = self.image.get_rect()
+		self.rect.topleft = 0,0
+	
+	def update(self):
+		self.rect = self.rect.move(1,0)
 
+class Goal(pygame.sprite.Sprite):
+	def __init__(self):
+		pygame.sprite.Sprite.__init__(self)
+		self.image = pygame.image.load("images/goal.png")
+		self.rect = self.image.get_rect()
+		self.rect = self.image.get_rect()
+		self.rect.topleft = 5000, 300
