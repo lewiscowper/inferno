@@ -1,3 +1,4 @@
+import pygame
 from pygame import Rect
 
 class Camera(object):
@@ -28,11 +29,12 @@ class Player(pygame.sprite.Sprite):
 	movingLeft = 0
 	movingRight = 0
 
-	def __init__(self, image):
+	def __init__(self, image, x, y):
                 pygame.sprite.Sprite.__init__(self)
 
 		self.image = pygame.image.load(image)
-        	self.rect = self.image.get_rect()
+		self.rect = self.image.get_rect()
+		self.rect.topleft = x,y
 
 	def move(self, event):
 		if (event.type == pygame.KEYDOWN):
