@@ -24,6 +24,7 @@ while ans:
 		os.system("python2 greed.py")
 	elif ans == 7:
 		print("\nopen violence.py")
+		os.system("python2 violence.py")
 	elif ans == 0:
 		print("\nExiting now")
 		break
