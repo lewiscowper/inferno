@@ -1,4 +1,4 @@
-import sys, pygame,random
+import sys, pygame, random
 from pygame import Rect
 from assets import Player
 from assets import Platform
@@ -18,17 +18,23 @@ def camera_update(camera, target_rect):
 def createPlatforms():
 	assetList = []
 	
-	#add first platform
+	# add first platform
 	previousPlatform = firstPlatform = Platform(0, 300)
 	assetList.append(firstPlatform)
 	
 	for i in range (0, 30):
-		startingPoint = previousPlatform.rect.top
-		heightDifference = random.randint(-50,50) + startingPoint
-		if (heightDifference < 400):
+		heightDifference = random.randint(-40, 40) + previousPlatform.rect.bottom
+
+		# keep the heights of the platform in a reasonable range
+		if (heightDifference > 500):
 			heightDifference = 400
+		elif (heightDifference < 200):
+			heightDifference = 200
+			
 		platform = Platform(i * 100, heightDifference)
 		assetList.append(platform)
+		
+		#keep the current platform for the next iteration
 		previousPlatform = platform
 	return assetList
 
@@ -38,10 +44,10 @@ def main():
 
 	# create assets and add to asset list
 	assetList = createPlatforms()
+	lastPlatform = assetList[-1] # grab last platform for the goal
 	platformSprites = pygame.sprite.RenderPlain(assetList)
-	lastPlatform = assetList[-1]
 	
-	goal = Goal(lastPlatform.rect.centerx, lastPlatform.rect.centery-30)
+	goal = Goal(lastPlatform.rect.centerx, lastPlatform.rect.centery - 30)
 	assetList.append(goal)
 	
 	player = Player(100, 250)
