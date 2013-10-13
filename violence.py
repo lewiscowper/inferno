@@ -86,7 +86,7 @@ def main():
 	things.add(player)
 	things.add(goal)
 	
-	background = pygame.image.load("images/violenceBackground.png")
+	background = pygame.image.load("images/rockyBackground.png")
 	backgroundRect = background.get_rect()
 
 	#screen
