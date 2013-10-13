@@ -1,8 +1,10 @@
-import sys, pygame, assets
+import sys, pygame, assets, parallax
 from pygame import Rect
 from assets import Player
 from assets import Platform
 from assets import Camera
+from pygame.locals import *
+
 
 pygame.init()
 
@@ -21,11 +23,18 @@ class Goal(pygame.sprite.Sprite):
 	    self.rect = self.image.get_rect()
 	    self.rect.topleft = 500,40
 
-def main():    
-    size = width, height = 800, 600
-    black = 0, 0, 0
+size = width, height = 800, 600
+screen = pygame.display.set_mode((size), pygame.DOUBLEBUF)
 
-    screen = pygame.display.set_mode(size)
+bg = parallax.ParallaxSurface([800,600])
+bg.add('images/rockyBackground.png', 2)
+bgSpeed = 0
+t_ref = 0
+
+def main():    
+    black = 0, 0, 0
+    
+    bgSpeed = 0
 
     player = Player(15, 580)
 
@@ -49,9 +58,26 @@ def main():
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 return
-            else:
-                player.move(event)
+	    elif event.type == KEYDOWN and event.key == K_RIGHT:
+		    bgSpeed += 10
+		    player.move(event)
+	    elif event.type == KEYUP and event.key == K_RIGHT:
+		    bgSpeed -= 10
+		    player.move(event)
+	    elif event.type == KEYDOWN and event.key == K_LEFT:
+		    bgSpeed -= 10
+		    player.move(event)
+	    elif event.type == KEYUP and event.key == K_LEFT:
+		    bgSpeed += 10
+		    player.move(event)
+	    elif event.type == KEYDOWN and event.key == K_UP:
+		    player.move(event)
         
+	bg.scroll(bgSpeed)
+	t = pygame.time.get_ticks()
+	if (t - t_ref) > 60:
+		bg.draw(screen)
+
         if (not pygame.sprite.spritecollide(player, platformSprites, False)):
             player.isFalling = 1
         else:
@@ -68,18 +94,22 @@ def main():
                 screen.blit(s, camera.scroll(e))
  
         pygame.display.flip()
-
-        if (player.rect.left < -10 and player.rect.top > 600):
+	
+	if (player.rect.left < -10 and player.rect.top > 600):
             print "You win"
             return
         
         if (player.rect.colliderect(goal.rect)):
             player.rect.topleft = 100,100
+	    print(bgSpeed)
+	    bgSpeed -= 10
 	    main()
             return
 
 	if (player.rect.left >= 0 and player.rect.top > 650):
 	    player.rect.topleft = 100,100
+	    print(bgSpeed)
+	    bgSpeed = 0
 	    main()
 	    return
 
