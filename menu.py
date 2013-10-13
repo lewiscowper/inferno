@@ -18,10 +18,10 @@ while ans:
 	ans=input("Which level would you like to play? ")
 	if ans == 1:
 		print("\nopen limbo.py")
-		os.system("python limbo.py")
+		os.system("python2 limbo.py")
 	elif ans == 4:
 		print("\nopen greed.py")
-		os.system("python greed.py")
+		os.system("python2 greed.py")
 	elif ans == 7:
 		print("\nopen violence.py")
 	elif ans == 0:
