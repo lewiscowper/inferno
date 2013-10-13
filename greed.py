@@ -5,8 +5,6 @@ from assets import Platform
 from assets import Camera
 from assets import Wall
 from assets import Goal
-from assets import Torch
-from assets import Crack
 
 pygame.init()
 
@@ -46,24 +44,6 @@ def createPlatforms():
 		previousPlatform = platform
 	return assetList
 
-def createTorches():
-	assetList = []
-	
-	for i in range (0,15):
-		torch = Torch(i * 300, 100)
-		assetList.append(torch)
-		
-	return assetList
-
-def createCracks():
-	assetList = []
-	
-	for i in range(0,30):
-		crack = Crack(i*50,random.randint(0, 800))
-		assetList.append(crack) 
-	
-	return assetList
-
 def main():
 	black = 28, 19, 02
 
@@ -73,12 +53,6 @@ def main():
 	assetList = createPlatforms()
 	lastPlatform = assetList[-1] # grab last platform for the goal
 	platformSprites = pygame.sprite.RenderPlain(assetList)
-	
-	# add torches
-	assetList = assetList + createTorches()
-	
-	#add cracks
-	assetList = assetList + createCracks()
 	
 	goal = Goal(lastPlatform.rect.centerx, lastPlatform.rect.centery - 30)
 	assetList.append(goal)

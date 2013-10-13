@@ -71,7 +71,7 @@ class Wall(pygame.sprite.Sprite):
 		self.rect.topleft = 0,0
 	
 	def update(self):
-		self.rect = self.rect.move(1,0)
+		self.rect = self.rect.move(1.75,0)
 
 class Goal(pygame.sprite.Sprite):
 	def __init__(self, x, y):
@@ -80,15 +80,4 @@ class Goal(pygame.sprite.Sprite):
 		self.rect = self.image.get_rect()
 		self.rect.topleft = x, y
 		
-class Torch(pygame.sprite.Sprite):
-	def __init__(self, x, y):
-		self.image = pygame.image.load("images/torch.png")
-		self.rect = self.image.get_rect()
-		self.rect.topleft = x, y
-		
-class Crack(pygame.sprite.Sprite):
-	def __init__(self, x,y):
-		self.image = pygame.image.load("images/crack.png")
-		self.rect = self.image.get_rect()
-		self.rect.topleft = x, y
 		
