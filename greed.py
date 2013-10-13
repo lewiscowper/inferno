@@ -13,7 +13,7 @@ size = width, height = 800, 600
 screen = pygame.display.set_mode((size), pygame.DOUBLEBUF)
 
 bg = parallax.ParallaxSurface([800,600])
-bg.add('images/rockyBackground.png', 5)
+bg.add('images/rockyBackground.png', 3.5)
 bgSpeed = 0
 t_ref = 0
 
@@ -81,6 +81,13 @@ def main():
 			if event.type == pygame.QUIT:
 				return
 			player.move(event)
+#			elif player.movingRight == 1:
+#				bgSpeed = 10
+#			elif player.movingLeft == 1:
+#				bgSpeed = -10
+#			elif player.movingRight == 0 or player.movingLeft == 0:
+#				bgSpeed = 0			
+#			player.move(event)
 
 #			elif event.type == KEYDOWN and event.key ==K_RIGHT:
 #				bgSpeed = 1.75
