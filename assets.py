@@ -71,7 +71,7 @@ class Wall(pygame.sprite.Sprite):
 		self.rect.topleft = 0,0
 	
 	def update(self):
-		self.rect = self.rect.move(1,0)
+		self.rect = self.rect.move(1.75,0)
 
 class Goal(pygame.sprite.Sprite):
 	def __init__(self, x, y):
