@@ -14,106 +14,43 @@ HALF_HEIGHT = 300
 def camera_update(camera, target_rect):
 	l, t, _, _ = target_rect
 	_, _, w, h = camera
-	return Rect(-l+HALF_WIDTH, -t+HALF_HEIGHT, w, h)
+	return Rect(-l + HALF_WIDTH, -t + HALF_HEIGHT, w, h)
 
 class Goal(pygame.sprite.Sprite):
 	def __init__(self, image):
 		pygame.sprite.Sprite.__init__(self)
 		self.image = pygame.image.load(image)
 		self.rect = self.image.get_rect()
-		self.rect.topleft = 500,40
+		self.rect.topleft = 500, 40
 
 size = width, height = 800, 600
 screen = pygame.display.set_mode((size), pygame.DOUBLEBUF)
 
-bg = parallax.ParallaxSurface([800,600])
+bg = parallax.ParallaxSurface([800, 600])
 bg.add('images/rockyBackground.png', 2)
 bgSpeed = 0
 t_ref = 0
 
-<<<<<<< HEAD
-def main():    
-    black = 28, 19, 02
- 
-    bgSpeed = 0
-
-    player = Player(15, 580)
-
-    platformList = []
-    for i in range (0, 10):
-        platform = Platform(i*50, 600 - (i*50))
-        platformList.append(platform)
-
-    platformSprites = pygame.sprite.RenderPlain(platformList)
-    goal = Goal("images/goal.png")
-
-    clock = pygame.time.Clock()
-
-    camera = Camera(camera_update, 300, 600)
-
-    platformList.extend([player, goal])
-
-    while 1:
-        screen.fill(black)
-        clock.tick(60)
-        for event in pygame.event.get():
-            if event.type == pygame.QUIT:
-                return
-	    elif event.type == KEYDOWN and event.key == K_RIGHT:
-		    bgSpeed += 10
-		    player.move(event)
-	    elif event.type == KEYUP and event.key == K_RIGHT:
-		    bgSpeed -= 10
-		    player.move(event)
-	    elif event.type == KEYDOWN and event.key == K_LEFT:
-		    bgSpeed -= 10
-		    player.move(event)
-	    elif event.type == KEYUP and event.key == K_LEFT:
-		    bgSpeed += 10
-		    player.move(event)
-	    elif event.type == KEYDOWN and event.key == K_UP:
-		    player.move(event)
-        
-	bg.scroll(bgSpeed)
-	t = pygame.time.get_ticks()
-	if (t - t_ref) > 60:
-		bg.draw(screen)
-
-        if (not pygame.sprite.spritecollide(player, platformSprites, False)):
-            player.isFalling = 1
-        else:
-            player.isFalling = 0
-
-        player.update()
-        camera.update(player)
-        for e in platformList:
-            try:
-                s = e.image
-            except:
-                pass
-            if s:
-                screen.blit(s, camera.scroll(e))
-=======
 def main():	
-	black = 0, 0, 0
-	
+	black = 28, 19, 02
+ 
 	bgSpeed = 0
 
 	player = Player(15, 580)
 
-	platformList = []
+	assetList = []
 	for i in range (0, 10):
-		platform = Platform(i*50, 600 - (i*50))
-		platformList.append(platform)
+		platform = Platform(i * 50, 600 - (i * 50))
+		assetList.append(platform)
 
-	platformSprites = pygame.sprite.RenderPlain(platformList)
+	platformSprites = pygame.sprite.RenderPlain(assetList)
 	goal = Goal("images/goal.png")
 
 	clock = pygame.time.Clock()
 
 	camera = Camera(camera_update, 300, 600)
 
-	platformList.extend([player, goal])
+	assetList.extend([player, goal])
 
 	while 1:
 		screen.fill(black)
@@ -122,20 +59,20 @@ def main():
 			if event.type == pygame.QUIT:
 				return
 			elif event.type == KEYDOWN and event.key == K_RIGHT:
-				bgSpeed = 10
+				bgSpeed += 10
 				player.move(event)
 			elif event.type == KEYUP and event.key == K_RIGHT:
 				bgSpeed = 0
 				player.move(event)
 			elif event.type == KEYDOWN and event.key == K_LEFT:
-				bgSpeed = -10
+				bgSpeed -= 10
 				player.move(event)
 			elif event.type == KEYUP and event.key == K_LEFT:
 				bgSpeed = 0
 				player.move(event)
 			elif event.type == KEYDOWN and event.key == K_UP:
 				player.move(event)
-			
+		
 		bg.scroll(bgSpeed)
 		t = pygame.time.get_ticks()
 		if (t - t_ref) > 60:
@@ -148,14 +85,13 @@ def main():
 
 		player.update()
 		camera.update(player)
-		for e in platformList:
+		for e in assetList:
 			try:
 				s = e.image
 			except:
 				pass
 			if s:
 				screen.blit(s, camera.scroll(e))
->>>>>>> e19f104e08b6d4c9c1d0cb83b7bcee9c53a2b59e
  
 		pygame.display.flip()
 		
@@ -164,37 +100,28 @@ def main():
 				return
 			
 		if (player.rect.colliderect(goal.rect)):
-			player.rect.topleft = 100,100
+			player.rect.topleft = 100, 100
 			print(bgSpeed)
 			bgSpeed = 0
 			main()
 			return
 	
-<<<<<<< HEAD
-	if (player.rect.left < -10 and player.rect.top > 600):
-            print "You win"
-            return
-        
-        if (player.rect.colliderect(goal.rect)):
-            player.rect.topleft = 100,100
-	    print(bgSpeed)
-	    bgSpeed = 0
-	    main()
-            return
-
-	if (player.rect.left >= 0 and player.rect.top > 650):
-	    player.rect.topleft = 100,100
-	    print(bgSpeed)
-	    bgSpeed = 0
-	    main()
-	    return
-=======
-		if (player.rect.left >= 0 and player.rect.top > 650):
-			player.rect.topleft = 100,100
+		if (player.rect.left < -10 and player.rect.top > 600):
+			print "You win"
+			return
+		
+		if (player.rect.colliderect(goal.rect)):
+			player.rect.topleft = 100, 100
 			print(bgSpeed)
 			bgSpeed = 0
 			main()
 			return
->>>>>>> e19f104e08b6d4c9c1d0cb83b7bcee9c53a2b59e
+
+		if (player.rect.left >= 0 and player.rect.top > 650):
+			player.rect.topleft = 100, 100
+			print(bgSpeed)
+			bgSpeed = 0
+			main()
+			return
 
 if __name__ == '__main__': main()

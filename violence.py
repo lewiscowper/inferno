@@ -73,72 +73,32 @@ class SinkingPlayer(Player):
 		self.rect = self.rect.move(movement)
 
 def main():
-<<<<<<< HEAD
-    #game objects
-    things = pygame.sprite.OrderedUpdates()
-    player = SinkingPlayer(0, WATER_TOP)
-    centaur = Centaur(CENTAUR_PLATFORM)
-    goal = Goal("images/goal.png")
-    camera = Camera(camera_update, 400, 600)
-    water = Water()
-    
-    things.add(water)
-    things.add(centaur)
-    things.add(player)
-    things.add(goal)
-
-    #screen
-    size = width, height = 800, 600
-    screen = pygame.display.set_mode(size)
-
-    pygame.init()
-
-    timer = pygame.time.Clock()
-
-    while 1:
-        timer.tick(40)
-        for event in pygame.event.get():
-            if event.type == pygame.QUIT:
-                return
-            player.move(event)
-
-        screen.fill((0,0,0))
-        things.draw(screen)
-        player.update(player.rect.colliderect(water.rect))
-        centaur.update(player)
-
-        pygame.display.flip()
-=======
-	# game objects
+	#game objects
 	things = pygame.sprite.OrderedUpdates()
 	player = SinkingPlayer(0, WATER_TOP)
 	centaur = Centaur(CENTAUR_PLATFORM)
 	goal = Goal("images/goal.png")
 	camera = Camera(camera_update, 400, 600)
 	water = Water()
->>>>>>> e19f104e08b6d4c9c1d0cb83b7bcee9c53a2b59e
 	
-	background = pygame.image.load("images/rockyBackground.png")
-	backgroundRect = background.get_rect()
-
 	things.add(water)
 	things.add(centaur)
 	things.add(player)
 	things.add(goal)
+	
+	background = pygame.image.load("images/violenceBackground.png")
+	backgroundRect = background.get_rect()
 
-	# screen
+	#screen
 	size = width, height = 800, 600
 	screen = pygame.display.set_mode(size)
 
 	pygame.init()
 
 	timer = pygame.time.Clock()
-	
-
 
 	while 1:
 		timer.tick(40)
-		
 		for event in pygame.event.get():
 			if event.type == pygame.QUIT:
 				return
@@ -146,20 +106,20 @@ def main():
 
 		screen.fill((0, 0, 0))
 		screen.blit(background, backgroundRect)
-
+		
 		things.draw(screen)
 		player.update(player.rect.colliderect(water.rect))
 		centaur.update(player)
 		
-		pygame.display.flip()
-	
 		if (player.rect.top > 600 or player.rect.top < 488):
 			print "You lose"
 			return
-	
+		
 		if (player.rect.colliderect(goal.rect)):
 			print "You win"
 			return
 
-if __name__ == '__main__': main()
 
+		pygame.display.flip()
+
+if __name__ == '__main__': main()
