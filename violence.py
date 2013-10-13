@@ -73,7 +73,7 @@ class SinkingPlayer(Player):
 		self.rect = self.rect.move(movement)
 
 def main():
-	#game objects
+	# game objects
 	things = pygame.sprite.OrderedUpdates()
 	player = SinkingPlayer(0, WATER_TOP)
 	centaur = Centaur(CENTAUR_PLATFORM)
@@ -89,7 +89,7 @@ def main():
 	background = pygame.image.load("images/rockyBackground.png")
 	backgroundRect = background.get_rect()
 
-	#screen
+	# screen
 	size = width, height = 800, 600
 	screen = pygame.display.set_mode(size)
 
@@ -111,7 +111,7 @@ def main():
 		player.update(player.rect.colliderect(water.rect))
 		centaur.update(player)
 		
-		if (player.rect.top > 600 or player.rect.top < 488):
+		if (player.rect.top > 600 or player.rect.left < 0 or player.rect.top < 488 or player.rect.right > 800):
 			print "You lose"
 			return
 		
