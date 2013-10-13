@@ -19,6 +19,13 @@ class Water(pygame.sprite.Sprite):
         self.rect = self.image.get_rect()
         self.rect.topleft = 0, WATER_TOP
 
+class Goal(pygame.sprite.Sprite):
+	def __init__(self, image):
+		pygame.sprite.Sprite.__init__(self)
+		self.image = pygame.image.load(image)
+		self.rect = self.image.get_rect()
+		self.rect.topleft = 750,550
+
 class Centaur(pygame.sprite.Sprite):
     def __init__(self, y):
         pygame.sprite.Sprite.__init__(self)
@@ -32,7 +39,7 @@ class Centaur(pygame.sprite.Sprite):
 
 class SinkingPlayer(Player):
     air_speed = 5
-    water_speed = 3
+    water_speed = 2
     isFalling = 1
 
     def move(self, event):
@@ -70,13 +77,14 @@ def main():
     things = pygame.sprite.OrderedUpdates()
     player = SinkingPlayer(0, WATER_TOP)
     centaur = Centaur(CENTAUR_PLATFORM)
+    goal = Goal("images/goal.png")
     camera = Camera(camera_update, 400, 600)
     water = Water()
 
     things.add(water)
     things.add(centaur)
     things.add(player)
-
+    things.add(goal)
 
     #screen
     size = width, height = 800, 600
@@ -99,6 +107,14 @@ def main():
         centaur.update(player)
 
         pygame.display.flip()
+	
+	if (player.rect.top > 600 or player.rect.top < 488):
+	    print "You lose"
+	    return
+
+	if (player.rect.colliderect(goal.rect)):
+	    print "You win"
+	    return
 
 if __name__ == '__main__': main()
 
