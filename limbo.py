@@ -101,25 +101,12 @@ def main():
 			
 		if (player.rect.colliderect(goal.rect)):
 			player.rect.topleft = 100, 100
-			print(bgSpeed)
-			bgSpeed = 0
-			main()
-			return
-	
-		if (player.rect.left < -10 and player.rect.top > 600):
-			print "You win"
-			return
-		
-		if (player.rect.colliderect(goal.rect)):
-			player.rect.topleft = 100, 100
-			print(bgSpeed)
 			bgSpeed = 0
 			main()
 			return
 
 		if (player.rect.left >= 0 and player.rect.top > 650):
 			player.rect.topleft = 100, 100
-			print(bgSpeed)
 			bgSpeed = 0
 			main()
 			return
