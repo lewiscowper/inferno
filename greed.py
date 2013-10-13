@@ -1,18 +1,19 @@
-import sys, pygame, random
+import sys, pygame, random, parallax
 from pygame import Rect
 from assets import Player
 from assets import Platform
 from assets import Camera
 from assets import Wall
 from assets import Goal
+from pygame.locals import *
 
 pygame.init()
 
 size = width, height = 800, 600
 screen = pygame.display.set_mode((size), pygame.DOUBLEBUF)
 
-bg = parallax.ParallaxSurface([800.600])
-bg.add('images/rockyBackground.png', 2)
+bg = parallax.ParallaxSurface([800,600])
+bg.add('images/rockyBackground.png', 5)
 bgSpeed = 0
 t_ref = 0
 
@@ -47,7 +48,7 @@ def createPlatforms():
 def main():
 	black = 28, 19, 02
 
-	bgSpeed = 0
+	bgSpeed = 1.75
 
 	# create assets and add to asset list
 	assetList = createPlatforms()
@@ -75,13 +76,32 @@ def main():
 		# tick to lock frame rate
 		clock.tick(60)
 	
-		# handle quit
+		# handle quit, and parallax scrolling
 		for event in pygame.event.get():
 			if event.type == pygame.QUIT:
 				return
-			else:
-				player.move(event)
+			player.move(event)
+
+#			elif event.type == KEYDOWN and event.key ==K_RIGHT:
+#				bgSpeed = 1.75
+#				player.move(event)
+#			elif event.type == KEYUP and event.key == K_RIGHT:
+#				bgSpeed = 0
+#				player.move(event)
+#			elif event.type == KEYDOWN and event.key == K_LEFT:
+#				bgSpeed = -1.75
+#				player.move(event)
+#			elif event.type == KEYUP and event.key == K_LEFT:
+#				bgSpeed = 0
+#				player.move(event)
+#			elif event.type == KEYDOWN and event.key == K_UP:
+#				player.move(event)
 		
+		bg.scroll(bgSpeed)
+		t = pygame.time.get_ticks()
+		if (t - t_ref) > 60:
+			bg.draw(screen)
+
 		# do collisions with platform
 		if (not pygame.sprite.spritecollide(player, platformSprites, False)):
 			player.isFalling = 1
