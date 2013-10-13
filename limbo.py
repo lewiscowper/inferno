@@ -32,8 +32,8 @@ bgSpeed = 0
 t_ref = 0
 
 def main():    
-    black = 0, 0, 0
-    
+    black = 28, 19, 02
+ 
     bgSpeed = 0
 
     player = Player(15, 580)
@@ -102,7 +102,7 @@ def main():
         if (player.rect.colliderect(goal.rect)):
             player.rect.topleft = 100,100
 	    print(bgSpeed)
-	    bgSpeed -= 10
+	    bgSpeed = 0
 	    main()
             return
 

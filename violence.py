@@ -80,7 +80,7 @@ def main():
     goal = Goal("images/goal.png")
     camera = Camera(camera_update, 400, 600)
     water = Water()
-
+    
     things.add(water)
     things.add(centaur)
     things.add(player)

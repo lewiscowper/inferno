@@ -11,6 +11,12 @@ from assets import Crack
 pygame.init()
 
 size = width, height = 800, 600
+screen = pygame.display.set_mode((size), pygame.DOUBLEBUF)
+
+bg = parallax.ParallaxSurface([800.600])
+bg.add('images/rockyBackground.png', 2)
+bgSpeed = 0
+t_ref = 0
 
 def camera_update(camera, target_rect):
 	l, t, _, _ = target_rect
@@ -60,7 +66,8 @@ def createCracks():
 
 def main():
 	black = 28, 19, 02
-	screen = pygame.display.set_mode(size)
+
+	bgSpeed = 0
 
 	# create assets and add to asset list
 	assetList = createPlatforms()
@@ -70,7 +77,7 @@ def main():
 	# add torches
 	assetList = assetList + createTorches()
 	
-	#add craks
+	#add cracks
 	assetList = assetList + createCracks()
 	
 	goal = Goal(lastPlatform.rect.centerx, lastPlatform.rect.centery - 30)
